@@ -1,0 +1,837 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif !important;
+  /* font-family: 'Noto Sans JP', sans-serif !important; */
+}
+
+header {
+  z-index: 1;
+  position: fixed;
+  background: #356d9e;
+  width: calc(100% - 0%);
+  top: 0;
+  height: 70px;
+}
+header h3 {
+  padding-left: 20px;
+}
+textarea {
+resize: none;
+}
+a {
+  text-decoration: none !important;
+}
+a:hover {
+  color: #19b3d3;
+}
+
+/* ======= Left area styling ==== */
+.left_area h3 {
+  color: #fff;
+  margin: 0;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 22px;
+  font-weight: 900;
+}
+.left_area span {
+  color: #19b3d3;
+  letter-spacing: none;
+}
+
+/* ====== Right area styling ==== */
+.right_area {
+  float: right;
+  margin-top: -30px;
+  margin-right: 10px;
+}
+.right_area button {
+  background: #356d9e !important;
+  color: #E5E5E5;
+  border: none;
+  text-transform: uppercase;
+  font-size: 15px;
+}
+.right_area button:hover {
+  background: #356d9e !important;
+  color: #fff !important;
+}
+.right_area button > i {
+  padding-left: 5px;
+}
+.right_area div div > div {
+  width: 200px !important;
+}
+.right_area a {
+  font-size: 13px;
+  color: #000;
+}
+.right_area a:hover {
+  color: #aaa !important;
+  background: #fff !important;
+}
+.right_area a:first-child {
+  border-bottom: 1px solid #eee;
+}
+.right_area a img{
+  width: 30px;
+  height: 25px;
+  padding-right: 5px;
+  border-radius: 50%;
+}
+
+/* ===== Sidebar styling ===== */
+.sidebar {
+  z-index: 1;
+  top: 0;
+  background: #3a7cb6;
+  margin-top: 70px;
+  padding-top: 30px;
+  position: fixed;
+  left: 0;
+  width: 250px;
+  height: calc(100% - 9%);
+  transition: 0.5s;
+  transition-property: left;
+  overflow-y: auto;
+}
+.profile_info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.sidebar .profile_info .profile_image {
+  width: 100px;
+  height: 110px;
+  margin-bottom: 10px;
+}
+.sidebar a {
+  color: rgb(245, 241, 241);
+  display: block;
+  width: 100%;
+  line-height: 60px;
+  text-decoration: none;
+  padding-left: 40px;
+  box-sizing: border-box;
+  transition: 0.5s;
+  transition-property: background;
+}
+.sidebar a:hover {
+  background: #19b3d3;
+}
+.sidebar a.active {
+  background: #356d9e;
+}
+.sidebar i {
+  padding-right: 10px;
+}
+label #sidebar_btn {
+  z-index: 1;
+  color: #fff;
+  padding: 10px;
+  position: fixed;
+  cursor: pointer;
+  left: 240px;
+  font-size: 20px;
+  margin: 5px 0;
+  transition: 0.5s;
+  transition-property: color;
+}
+label #sidebar_btn:hover {
+  color: #19b3d3;
+}
+#check:checked ~ .sidebar {
+  left: -185px;
+}
+#check:checked ~ .sidebar a span {
+  display: none;
+}
+#check:checked ~ .sidebar a {
+  font-size: 20px;
+  margin-left: 165px;
+  width: 100%;
+}
+#check:checked ~ .content {
+  margin-left: 60px;
+}
+#check:checked ~ .footer {
+  margin-left: 60px;
+}
+#check:checked ~ .sidebar .profile_info {
+  display: none;
+}
+#check {
+  display: none;
+}
+
+/* ===== Mobile nav styling ==== */
+.mobile_nav {
+  display: none;
+}
+.mobile_nav a.active {
+  background: #356d9e;
+}
+
+/* ======= Content section styling starts here ====*/
+
+.content {
+  width: (100% - 250px);
+  margin-top: 60px;
+  padding: 20px;
+  margin-left: 250px;
+  background: #f7f7f8;
+  min-height: 90vh;
+  background-position: center;
+  background-size: cover;
+  transition: 0.5s;
+}
+.badge {
+  font-weight: 600;
+  padding: 3px 7px;
+  font-size: 13px;
+  margin-top: 1px;
+  color: #fff;
+  background-color: #6c757d;
+  border-radius: 0.25rem;
+}
+.content .page-title-box .page-title {
+  background: #ffffff;
+  -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.03);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.03);
+  padding: 20px;
+  margin: -20px -20px 22px -20px;
+  border-radius: 0;
+  background: #e9ebec;
+  border-bottom: 1px solid #dbdee0;
+  color: #4c5667;
+}
+.content .card {
+  background: white;
+  padding: 15px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  opacity: 0.8;
+  border: 1px solid #dbdee0;
+  border-color: rgb(219, 222, 224);
+}
+.content .card .messages {
+  display: block;
+  padding: 10px 5px;
+}
+.content .card .messsages .danger {
+  background: grey;
+  justify-content: left;
+}
+.content .card .boxpane-header {
+  color: #34383c;
+  background: #f7f7f8;
+  border-top: 1px solid #dbdee0;
+  border-bottom: 1px solid #dbdee0;
+  padding: 0px;
+  margin: -15px -15px 15px -15px;
+}
+.content .card .boxpane-header2 {
+  color: #34383c;
+  font-size: 16px;
+  background: #f7f7f8;
+  border-top: 1px solid #dbdee0;
+  border-bottom: 1px solid #dbdee0;
+  padding: 0px 10px;
+  margin: -25px -15px 15px -15px;
+}
+.content .card .boxpane-header h2 {
+  float: left;
+  padding: 10px 0px;
+  margin: 0px 0px 0px 20px;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: bold;
+}
+.content .card .boxpane-header h2 i {
+  border-right: 1px solid #dbdee0;
+  padding: 12px 0px;
+  height: 40px;
+  width: 40px;
+  display: inline-block;
+  text-align: center;
+  margin: -10px 20px -10px -20px;
+  font-size: 16px;
+}
+.content .card .boxpane-header2 p.introtext {
+  font-weight: 400;
+  line-height: 1;
+  padding: 5px 0px;
+  margin: 5px 0px 5px 0px;
+}
+
+/* ===== DASHBOARD ===== */
+.content .card .student_dashboard p {
+  line-height: 2em;
+}
+.content .card .student_dashboard ul li {
+  list-style-type: lower-greek;
+  line-height: 2em;
+}
+.content .card .admin_dashboard .schedule_section{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2em;
+  margin-bottom: 0px;
+}
+@media screen and (max-width: 991px) {
+  .content .card .admin_dashboard .schedule_section{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 0em;
+  }
+}
+@media screen and (max-width: 780px) {
+  .content .card .admin_dashboard .schedule_section{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 0em;
+  }
+}
+.content .card .admin_dashboard .schedule_section .schedule {
+  padding: 5px;
+  margin-bottom: 30px;
+  padding-left: 10px;
+  padding-bottom: 0px;
+}
+.content .card .admin_dashboard .schedule_section .schedule .schedule_img {
+  margin-right: 5px;
+}
+.content .card .admin_dashboard .schedule_section .schedule .schedule_text {
+  margin-left: 5px;
+}
+.content .card .admin_dashboard .schedule_section .schedule .schedule_text p {
+  margin: 5px;
+  margin-bottom: 2px;
+}
+.content .card .admin_dashboard .schedule_section .schedule .schedule_text p:first-child {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.content .card .admin_dashboard .schedule_section .schedule .schedule_text p:last-child {
+  font-size: 14px;
+  font-weight: 500px;
+}
+
+/* .content .card .admin_dashboard .bosOne_section .bosOne_data p {
+  font-size: 16px;
+  font-weight: 700px;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow: 1px 0px 4px #aaa;
+} */
+.content .card .bosOne_section {
+  margin-bottom: 10px;
+}
+.content .card .bosOne_section .bosOne_data2 {
+  background: #f7f7f8;
+  padding: 10px;
+  border-radius: 0px !important;
+}
+.content .card .bosOne_section .bosOne_data2 > ul{
+  padding: 0;
+  margin:0;
+}
+.content .card .bosOne_section .bosOne_data2 ul li {
+  list-style: none;
+  padding: 10px 0px;
+  font-size: 16px;
+}
+.content .card .bosOne_section .bosOne_data2 ul li p {
+  font-size: 14px;
+  margin-bottom: 0px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.content .card .bosOne_section .bosOne_data2 ul li ul li {
+  border: none !important;
+  background: #f7f7f8 !important;
+  border-bottom: 1px solid #3a7cb6 !important;
+  margin-left: 20px;
+}
+.content .card .bosOne_section .bosOne_data2 ul li ul li span {
+  background: #3a7cb6;
+  padding: 10px;
+  border-radius: 35px;
+}
+.tasks_section table tbody td p {
+  max-width: 300px;
+  max-height: 40px;
+  overflow: hidden;
+  margin: 0;
+  padding:0;
+
+}
+/* .content .card .admin_dashboard .graph_section{
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 2em;
+}
+.content .card .admin_dashboard .graph_section .graph{
+  border: 2px solid #eee;
+}
+.content .card .admin_dashboard .graph_section .graph_heading{
+  height: 100px;
+  margin-top: -45px;
+  width: 450px;
+  margin-left: 50px;
+  padding: 10px;
+  z-index: 1;
+  background: #00E676;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  text-align: center;
+  text-transform: uppercase;
+}
+.content .card .admin_dashboard .graph_section .graph_heading2{
+  height: 100px;
+  margin-top: -45px;
+  width: 450px;
+  margin-left: 50px;
+  padding: 10px;
+  z-index: 1;
+  background: #f44336;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.content .card .admin_dashboard .graph_section .graph_body{
+  padding: 10px 10px 5px 10px;
+}
+@media screen and (max-width: 991px) {
+  .content .card .admin_dashboard .graph_section{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-gap: 3em;
+  }
+  .content .card .admin_dashboard .graph_section .graph{
+    margin-bottom: 30px;
+  }
+  .content .card .admin_dashboard .graph_section .graph_heading{
+    background: #00E676;
+    color: #fff;
+    width: 400px;
+    max-height: 100px;
+    margin-top: -40px;
+    margin-left: 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  .content .card .admin_dashboard .graph_section .graph_heading2{
+    position: static;
+    padding: 10px;
+    background: #f44336;
+    color: #fff;
+    width: 400px;
+    max-height: 100px;
+    margin-top: -40px;
+    margin-left: 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  .content .card .admin_dashboard .graph_section .graph_body{
+    padding: 10px 10px 5px 10px;
+  }
+} */
+
+/* ====== MANAGE USERS ==== */
+.content .card .user_content{
+  border: none;
+}
+.content .card .user_content form label {
+  display: block;
+  margin: 0px !important;
+  padding: 0px 0px;
+  color: #000;
+  font-weight: 900px;
+}
+.content .card .user_content form label span {
+  color: red;
+  font-size: 17px;
+  font-weight: bold;
+}
+.content .card .user_content form input {
+  outline: none !important;
+  background: #f7f7f8 !important;
+  border-radius: 0px !important;
+}
+.content .card .user_content form select {
+  outline: none !important;
+  background: #f7f7f8 !important;
+  border-radius: 0px !important;
+}
+.content .card .user_content form button {
+  padding: 5px 100px;
+  text-align: center;
+  background: #1a84e0;
+  color: #fff;
+  font-size: 15px;
+  margin-bottom:10px;
+}
+.content .card .user_content form button:hover {
+  opacity: 0.8;
+}
+
+.blue {
+  color: #1a84e0 !important;
+}
+
+.content .card .view_users button {
+  font-size: 18px;
+  outline: none !important;
+  letter-spacing: 0.1em;
+  padding: 5px 0px;
+}
+
+.content .card .view_users .table_content thead {
+  background: #fafafa;
+}
+
+/* ======= Add field place styliing ===== */
+.content .card .add_field_place form label {
+  display: block;
+  padding: 0px 0px;
+  margin: 0px !important;
+  color: #000;
+  font-weight: 900px;
+}
+.content .card .add_field_place form label span {
+  color: red;
+  font-size: 17px;
+  font-weight: bold;
+}
+.content .card .add_field_place form input {
+  outline: none !important;
+  margin: 0px !important;
+  background: #f7f7f8 !important;
+  border-radius: 0px !important;
+}
+.content .card .add_field_place form select {
+  outline: none !important;
+  background: #f7f7f8 !important;
+  border-radius: 0px !important;
+}
+.content .card .add_field_place form button {
+  padding: 5px 100px;
+  text-align: center;
+  margin: 10px 0px;
+  background: #1a84e0;
+  color: #fff;
+  font-size: 15px;
+}
+.content .card .add_field_place form button:hover {
+  opacity: 0.8;
+}
+
+.content .card .fieldPlace_details .table_footer {
+  margin-top: -15px;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  border-bottom: 2px solid #aaa;
+  border-top: 2px solid #aaa;
+  padding: 15px 10px 5px 10px;
+}
+.content .card .fieldPlace_details .table_footer .coordinator {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.content .card .fieldPlace_details .table_footer .coordinator  {
+  line-height: 1.5em;
+}
+.content .card .fieldPlace_details .table_footer .coordinator p {
+  font-size: 16px;
+  font-style: oblique;
+}
+.content .card .fieldPlace_details .table_footer .coordinator p span {
+  font-weight: 700;
+}
+/* ==== FIELDSCHEDULE ==== */
+.content .card .fieldschedule_container {
+  margin: 10px 10px 30px 10px;
+}
+.content .card .fieldschedule_container form label {
+  display: inline-block;
+  width: 10%;
+}
+.content .card .fieldschedule_container form input {
+  display: inline-block;
+  padding: 10px;
+  margin: 10px 0px;
+  width: 90%;
+  background: #fafafa;
+  border: 1px solid #eee;
+  outline: none;
+}
+.content .card .fieldschedule_container form button {
+  border-radius: 5px;
+  padding: 10px 0px;
+  margin-left: 10%;
+  width: 90%;
+  text-align: center;
+  background: #1a84e0;
+  color: #fff;
+  font-size: 15px;
+  letter-spacing: 0.2em;
+}
+.content .card .fieldschedule_container form button:hover {
+  opacity: 0.8;
+}
+@media screen and (max-width:991px) {
+  .content .card .fieldschedule_container form label {
+    display: block;
+    width: 100%;
+  }
+  .content .card .fieldschedule_container form input {
+    display: block;
+    width: 100%;
+  }
+  .content .card .fieldschedule_container form button {
+    display: block;
+    margin-left: 0px;
+    width: 100%;
+  }
+}
+
+.content .card .exists_message {
+  background: #d9edf7;
+  border:2px solid #bce8f1;
+  color: #31708f;
+  padding: 20px 20px 10px 20px;
+  border-radius: 5px;
+}
+.content .card .fieldschedule_container .fieldSchedule_data {
+  margin-top: 10px;
+}
+.content .card .fieldschedule_container .fieldSchedule_data > p button:first-child {
+  background: grey;
+  color: #fff;
+  padding: 10px 30px;
+  letter-spacing: 0.08em;
+}
+.content .card .fieldschedule_container .fieldSchedule_data > p button:last-child {
+  background: #1a84e0;
+  color: #fff;
+  padding: 10px 30px;
+  letter-spacing: 0.08em;
+}
+.content .card .fieldschedule_container .fieldSchedule_data > p button:hover {
+  opacity: 0.8;
+}
+@media screen and (max-width:994px) {
+  .content .card .fieldschedule_container .fieldSchedule_data > p button:first-child {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .content .card .fieldschedule_container .fieldSchedule_data > p button:last-child {
+    display: block;
+    width: 100%;
+  }
+}
+
+/* ========= Arrival styling ======= */
+.content .card .custom_file form button {
+  padding: 5px 0px;
+  width: 100%;
+  background: #1a84e0;
+  color: #fff;
+  font-size: 15px;
+  letter-spacing: 0.2em;
+}
+@media screen and (max-width:600px) {
+  .content .card .custom_file form button {
+    display: block;
+    margin-top: 10px;
+  }
+}
+
+/* ======== Task styling ========= */
+.content .card .task_container .nav .active {
+  background: #1a84e0;
+  color: #fff;
+}
+.task_container .field_task_home {
+  border: 1px solid #eee;
+  border-radius: 5px;
+  margin-top: 10px;
+  padding: 0px;
+  padding: 20px 10px 5px 10px;
+}
+
+.task_container .field_task_week table tr td p {
+  max-width: 400px;
+  max-height: 50px;
+  margin: 0;;
+}
+.task_container .field_task_week table tr .task_text p {
+  overflow-y: scroll;
+}
+.task_container .field_task_week table tr .submit {
+  color: #fff;
+  font-weight: 100;
+  padding: 0px 10px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 55px;
+  opacity: 0.8;
+}
+.task_container .field_task_week table tr textarea {
+  margin: 0;
+  padding: 5px;
+  background: #eee;
+  border: none;
+  outline: none;
+}
+.task_container .field_task_week table tr input {
+  margin: 0;
+  padding: 10px;
+  background: #eee;
+  border: none;
+  outline: none;
+  width: 60px;
+  height: 50px;
+}
+.task_container .field_task_week table tr button {
+  margin: 10px 0px 5px 5px;
+  text-align: center;
+  padding: 5px 20px;
+  border-radius: 4px;
+}
+.task_container .field_task_week table tr button:hover {
+  /* color: #000; */
+  opacity: 0.8;
+}
+/* footer styling */
+.footer {
+  width: (100% - 250px);
+  padding: 0;
+  margin: 0;
+  margin-left: 250px;
+  color: #98a6ad;
+  background: #fff;
+  background-position: center;
+  background-size: cover;
+  transition: 0.5s;
+  text-align: center;
+  font-weight: 400;
+  line-height: 1.6;
+  font-size: 0.85rem;
+}
+/* Responsive CSS */
+
+@media screen and (max-width: 780px) {
+  .sidebar {
+    display: none;
+  }
+
+  #sidebar_btn {
+    display: none;
+  }
+
+  .content {
+    margin-left: 0;
+    margin-top: 0;
+    padding: 10px 20px;
+    transition: 0s;
+  }
+  .footer {
+    margin-left: 0;
+    margin-top: 0;
+    padding: 10px 20px;
+    transition: 0s;
+  }
+
+  #check:checked ~ .content {
+    margin-left: 0;
+  }
+
+  .mobile_nav {
+    display: block;
+    width: calc(100% - 0%);
+  }
+
+  .nav_bar {
+    background: #3a7cb6;
+    width: (100% - 0px);
+    margin-top: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+
+  .nav_bar .mobile_profile_image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+
+  .nav_bar .nav_btn {
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+    transition: 0.5s;
+    transition-property: color;
+  }
+
+  .nav_bar .nav_btn:hover {
+    color: #19b3d3;
+  }
+
+  .mobile_nav_items {
+    background: #2f323a;
+    display: none;
+  }
+
+  .mobile_nav_items a {
+    color: #fff;
+    display: block;
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 60px;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: 0.5s;
+    transition-property: background;
+  }
+
+  .mobile_nav_items a:hover {
+    background: #19b3d3;
+  }
+
+  .mobile_nav_items i {
+    padding-right: 10px;
+  }
+
+  .active {
+    display: block;
+  }
+}

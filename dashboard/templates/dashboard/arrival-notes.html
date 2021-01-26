@@ -1,0 +1,45 @@
+{% extends '../base.html' %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+{% block content %}
+<div class="custom_file px-2">
+  {% if currentSchedule %}
+    {% if fieldplace %}
+      {% if user_arrived %}
+      <div class="exists_content">
+        <div class="exists_message">
+          <p><strong>{{ user.first_name|upper}} {{ user.last_name|upper}}</strong>, You have successifully uploaded your arrival note. You can now access task content</p>
+        </div>
+      </div>
+      {% else %}
+        <form action="{% url 'dashboard:arrival-notes' %}" method="POST" class="form-group" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class=" col-md-10 custom-file">
+              {{ form.pdf }}
+              <label for="id_pdf" class="custom-file-label">Choose your file</label>
+            </div>
+            <div class="col-md-2">
+              <button class="btn" type="submit" >Submit</button>
+            </div>
+          </div>
+        </form>
+      {% endif %}
+    {% else %}
+    <div class="exists_content" style="display:block;width:100%;">
+      <div class="exists_message py-2 px-3">
+        <h6 style="line-height:1.5em;"><strong>{{ user.first_name|upper }} {{ user.last_name|upper }}</strong>, You have not yet added your field place details. Add your field place details first to access this page's content.
+          select <strong><a href="{% url 'dashboard:add-field-place' %}"><i>Add field place</i></a></strong> to fill the information</h6>
+      </div>
+    </div>
+    {% endif %}
+  {% else %}
+  <div class="exists_content">
+    <div class="exists_message">
+      <p>Field schedule for year <strong>{{date|date:"Y"}}</strong>
+        has not yet been scheduled. you can not access this page's content
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,196 @@
+{% load static %}
+{% url 'dashboard:home' as home %}
+{% url 'dashboard:tasks' as tasks %}
+{% url 'dashboard:arrival-notes' as arrival %}
+{% url 'dashboard:add-field-place' as addplace%}
+{% url 'dashboard:field-place-details' as fielddetails %}
+{% url 'dashboard:manage-users' as manageUser %}
+{% url 'dashboard:field-schedule' as fieldSchedule %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EASTC PT | {{ page_title }}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'w3-css.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+    <link rel="stylesheet" href="{% static 'fontawesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/datatable.min.css' %}" />
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+      charset="utf-8"
+    ></script> -->
+    <script src="{% static 'bootstrap/js/chart.js' %}"></script>
+  </head>
+  <body>
+
+      <input type="checkbox" id="check" />
+      <!--header area start-->
+      <header class="w3-card">
+        <label for="check">
+          <i class="fa fa-bars" id="sidebar_btn"></i>
+        </label>
+        <div class="left_area">
+          <h3>EASTC - <span>PT</span></h3>
+        </div>
+        <div class="right_area">
+          <div class="d-flex">
+            <div class="w3-dropdown-hover">
+              <button class="w3-button">{{user.first_name}} {{user.last_name}}    <i class="fa fa-user"></i></button>
+              <div class="w3-dropdown-content w3-bar-block w3-border w3-animate-zoom">
+                <a href="{% url 'accounts:password-change' %}"  class="w3-bar-item w3-button"><img src="{% static 'images/changepassword.png'%}" alt="">Change-password</a>
+                <a href="{% url 'accounts:logout' %}"  class="w3-bar-item w3-button"><img src="{% static 'images/logout.png'%}" alt="">Logout</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!--header area end-->
+      <!--mobile navigation bar start-->
+      <div class="mobile_nav">
+        <div class="nav_bar">
+          <img
+          src="{% static 'images/logo.gif' %}"
+          class="mobile_profile_image"
+          alt=""
+          />
+          <i class="fa fa-bars nav_btn"></i>
+        </div>
+        <div class="mobile_nav_items w3-animate-top">
+          <a class="{% if request.path == home %}active{% endif %}" href="{% url 'dashboard:home' %}"
+          ><i class="fa fa-desktop"></i><span>Dashboard</span></a
+          >
+          {% if user.profile.role_name == "student" %}
+          <a class="{% if request.path == fielddetails %}active{% endif %}" href="{% url 'dashboard:field-place-details' %}"
+          ><i class="fa fa-table"></i><span>My place details</span></a
+          >
+          <a class="{% if request.path == tasks %}active{% endif %}" href="{% url 'dashboard:tasks' %}"
+          ><i class="fa fa-th"></i><span>Tasks</span></a
+          >
+          <a class="{% if request.path == arrival %}active{% endif %}" href="{% url 'dashboard:arrival-notes' %}"
+          ><i class="fa fa-file"></i><span>Arrival notes</span></a
+          >
+          {% endif %}
+          {% if user.profile.role_name == "admin" %}
+          <a class="{% if request.path == manageUser %}active{% endif %}" href="{% url 'dashboard:manage-users' %}"
+          ><i class="fa fa-file"></i><span>Manage users</span></a
+          >
+          {% endif %}
+          {% if user.profile.role_name == "admin" or user.profile.role_name == "coordinator" %}
+          <a class="{% if request.path == fieldSchedule %}active{% endif %}" href="{% url 'dashboard:field-schedule' %}"
+          ><i class="fa fa-file"></i><span>Add Field Schedule</span></a
+          >
+          {% endif %}
+          {% if user.profile.role_name == "student" %}
+          <a href="{% url 'dashboard:add-field-place' %}"><i class="fa fa-cogs"></i><span>Add Field place</span></a>
+          {% endif %}
+          <a href="{% url 'dashboard:home' %}"><i class="fa fa-sliders-h"></i><span>Support</span></a>
+        </div>
+      </div>
+      <!--mobile navigation bar end-->
+      <!--sidebar start-->
+      <div class="w3-card sidebar">
+        <div class="profile_info">
+          <img
+          src="{% static 'images/logo.gif' %}"
+          class="profile_image"
+          alt=""
+          />
+        </div>
+        <a class="{% if request.path == home %}active{% endif %}" href="{% url 'dashboard:home' %}"
+        ><i class="fa fa-desktop"></i><span>Dashboard</span></a
+        >
+        {% if user.profile.role_name == "student" %}
+        <a class="{% if request.path == fielddetails %}active{% endif %}" href="{% url 'dashboard:field-place-details' %}"
+        ><i class="fa fa-table"></i><span>My place details</span></a
+        >
+        <a class="{% if request.path == tasks %}active{% endif %}" href="{% url 'dashboard:tasks' %}"
+        ><i class="fa fa-th"></i><span>Tasks</span></a
+        >
+        <a class="{% if request.path == arrival %}active{% endif %}" href="{% url 'dashboard:arrival-notes' %}"
+        ><i class="fa fa-file"></i><span>Arrival notes</span></a
+        >
+        {% endif %}
+        {% if user.profile.role_name == "admin" %}
+        <a class="{% if request.path == manageUser %}active{% endif %}" href="{% url 'dashboard:manage-users' %}"
+        ><i class="fa fa-file"></i><span>Manage users</span></a
+        >
+        {% endif %}
+        {% if user.profile.role_name == "admin" or user.profile.role_name == "coordinator" %}
+        <a class="{% if request.path == fieldSchedule %}active{% endif %}" href="{% url 'dashboard:field-schedule' %}"
+        ><i class="fa fa-file"></i><span>Add Field Schedule</span></a
+        >
+        {% endif %}
+        {% if user.profile.role_name == "student" %}
+        <a class="{% if request.path == addplace %}active{% endif %}" href="{% url 'dashboard:add-field-place' %}"><i class="fa fa-cogs"></i><span>Add Field place</span></a>
+        {% endif %}
+        <a href="{% url 'dashboard:home' %}"><i class="fa fa-question"></i><span>Support</span></a>
+      </div>
+      <!--sidebar end-->
+
+      <!-- Content starts here -->
+      <div class="content">
+        <div class="page-title-box">
+          <h4 class="page-title  w3-animate-zoom">
+            Logged in as: {{ user.username }}
+            <sub><span class="badge" style="padding:5px;"> {{user.profile.role_name|title}}, EASTC</span></sub>
+          </h4>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="card">
+          <div class="boxpane-header">
+            <h2 class="blue">
+              <i class="fa fa-tachometer"></i>
+              <span>{{ page_title }}</span>
+            </h2>
+          </div>
+          <div class="row mt-2">
+            <div class="col-md-4 col-sm-0"></div>
+            <div class="col-md-8 col-sm-12">
+              <div class="message w3-center">
+                <div class="message_column">
+                  {% if messages %}
+                  {% for message in messages %}
+                  <div class="alert alert-{{ message.tags }} alert-dismissible fade show w3-animate-top" role="alert">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% block content %} {% endblock %}
+        </div>
+      </div>
+      <!-- content ends here -->
+      <!-- footer starts here -->
+      <div class="footer">
+        {{current_date.year}} ©Eastern Africa Statistical Training Centre - Practical Training
+        (EASTC-PT)
+      </div>
+
+    <script type="text/javascript" src="{% static 'bootstrap/js/jquery.js'%}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/pdfmake.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/vfs_fonts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/datatables.min.js' %}"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $(".nav_btn").click(function () {
+          $(".mobile_nav_items").toggleClass("active");
+        });
+      });
+    </script>
+    {% block blockjs %}
+
+    {% endblock %}
+  </body>
+</html>

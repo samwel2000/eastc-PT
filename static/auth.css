@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+.auth_body {
+  background: #E0E0E0;
+  font-family: 'Montserrat', sans-serif !important;
+}
+.outer_container {
+  padding: 70px 0px 0px 0px;
+  height: 100vh;
+}
+.outer_container .header {
+  position: absolute;
+  top: -30px;
+  margin-left: 20px;
+  background: #19b3d3;
+  color: #fff;
+  padding: 10px 20px 0px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 5px;
+  z-index: 2;
+}
+.outer_container .login_footer {
+  color: #000;
+  opacity: 0.85;
+  padding: 10px 0px;
+  margin: 40px 30px 0px 30px;
+  text-align: center;
+  border-top: 2px solid #aaa;
+  font-size: 15px;
+}
+.outer_container .login_content {
+  position: static;
+  z-index: 1;
+  padding: 20px;
+  /* animation-delay: 0.1s; */
+  background: #fff;
+  border-radius: 5px;
+}
+.login_content .login_image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0px;
+}
+.login_content img {
+  height: 130px;
+  width: 130px;
+  border: 0.2px solid #eee;
+  border-radius: 50%;
+  background: #fafafa;
+}
+.login_content .form_content {
+  color: #000;
+}
+.login_content .form_content ul li {
+  list-style: none;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+  padding: 10px;
+  border-radius: 5px;
+  margin-left: -40px;
+}
+.login_content .form_content label {
+  display: block;
+  margin: 10px 0px;
+}
+.login_content .form_content input {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  background: #fafafa;
+  outline: none;
+  border: 1px solid #eee;
+}
+.login_content .form_content button {
+  background: #19b3d3;
+  color: #fff;
+  display: block;
+  width: 100%;
+  padding: 5px 0px;
+  text-align: center;
+  margin: 30px 0px 30px 0px;
+}
+.login_content .form_content button:hover {
+  opacity: 0.8;
+}
+.login_content .form_content button i {
+  padding-left: 5px;
+}

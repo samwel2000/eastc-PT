@@ -1,0 +1,110 @@
+{% extends '../base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="task_container">
+  <div class="container-fluid px-2">
+      {% if scheduledWeeks %}
+        {% if fieldplace %}
+          {% if arrival_note %}
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+            </li>
+            {% for i in scheduledWeeks %}
+            <li class="nav-item" role="presentation">
+              <a class="nav-link " id="week{{forloop.counter}}-tab" data-toggle="tab" href="#week{{forloop.counter}}" role="tab" aria-controls="week{{forloop.counter}}" aria-selected="false">Week {{forloop.counter}}</a>
+            </li>
+            {% endfor %}
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+              <div class="field_task_home pt-2">
+                <p>Hello <strong>{{ user.first_name|upper}} {{ user.last_name|upper}}</strong>, in this section you will be able to list down your daily tasks or activities performed
+                  per each week through out your field period </p>
+                  <p>Note: You cannot be able to edit your daily task(s) once you have submitted it for approvial.kindly fill the information accordingly.
+                  </p>
+                </div>
+              </div>
+              {% for i in scheduledWeeks %}
+              <div class="tab-pane fade show" id="week{{forloop.counter}}" role="tabpanel" aria-labelledby="week{{forloop.counter}}-tab">
+                <div class="field_task_week pt-2">
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead class="thead-light">
+                        <tr>
+                          <th width=15%>Week day</th>
+                          <th width=35%>Description of task undertaken</th>
+                          <th width=35%>Description of lesson learnt</th>
+                          <th width=5%>Hrs</th>
+                          <th width=10%>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for day in days %}
+                        <tr class="row_{{forloop.counter}}">
+                          <td width=13%>{{day}}</td>
+                          {% for task in get_tasks %}
+                          {% if task.week == forloop.parentloop.parentloop.counter %}
+                            {% if task.day == day %}
+                            <form class="" action="" method="post" id="taskForm">
+                              {% csrf_token %}
+                                <td class="task_text" width=35%>{% if task.task %}<p>{{task.task }}</p>{% else %}{{form.task}}{% endif %}</td>
+                                <td class="task_text" width=35%>{% if task.lesson %}<p>{{task.lesson }}</p>{% else %}{{form.lesson}}{% endif %}</td>
+                                <td width=7%>{% if task.hours %}<p>{{task.hours }}</p>{% else %}{{form.hours}}{% endif %}</td>
+                                <input type="text" name="week" value="week{{forloop.parentloop.parentloop.counter}}" hidden>
+                                <input type="text" name="day" value="{{day}}" hidden>
+                                <td width=10%>{% if task.hours %}<p class="submit bg-success">submitted</p>{% else %}<button class="btn btn-sm btn-danger" type="submit">save</button>{% endif %}</td>
+                            </form>
+                            {% endif %}
+                          {% endif %}
+                          {% empty %}
+                            <form class="" action="" method="post" id="taskForm">
+                              {% csrf_token %}
+                              <td width=35%>{{form.task}}</td>
+                              <td width=35%>{{form.lesson}}</td>
+                              <td width=5%>{{form.hours}}</td>
+                              <input type="text" name="week" value="week{{forloop.parentloop.counter}}" hidden>
+                              <input type="text" name="day" value="{{day}}" hidden>
+                              <td width=10%><button class="btn btn-primary" type="submit" name="{{day}}_button">save</button></td>
+                            </form>
+                          {% endfor %}
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+          </div>
+          {% else %}
+          <div class="exists_content" style="display:block;width:100%;">
+            <div class="exists_message py-2 px-3">
+              <h6 style="line-height:1.5em;"><strong>{{ user.first_name|upper }} {{ user.last_name|upper }}</strong>, You have not yet submited your arrival note. upload your arrival note to start submitting your tasks here.
+                select <strong><a href="{% url 'dashboard:arrival-notes' %}"><i>Arrival Note</i></a></strong> to upload the note.</h6>
+            </div>
+          </div>
+          {% endif %}
+        {% else %}
+        <div class="exists_content" style="display:block;width:100%;">
+          <div class="exists_message py-2 px-3">
+            <h6 style="line-height:1.5em;"><strong>{{ user.first_name|upper }} {{ user.last_name|upper }}</strong>, You have not yet added your field place details. Add your field place details to start submitting your tasks here.
+              select <strong><a href="{% url 'dashboard:add-field-place' %}"><i>Add field place</i></a></strong> to fill the information</h6>
+          </div>
+        </div>
+        {% endif %}
+      {% else %}
+        <div class="exists_content">
+          <div class="exists_message mx-2">
+            <p>
+              Field attachment for year <strong>{{ date|date:"Y"}}</strong> has not yet been scheduled. you can not access this page's content
+            </p>
+          </div>
+        </div>
+      {% endif %}
+  </div>
+</div>
+{% endblock %}
+{% block blockjs %}
+
+{% endblock %}

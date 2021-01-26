@@ -1,0 +1,85 @@
+{% extends '../base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="fieldschedule_container">
+  <div class="row">
+    <div class="col-md-12">
+      {% if specificSchedule %}
+      <div class="exists_content">
+        <div class="exists_message">
+          <p>Field schedule for year <strong>{{date|date:"Y"}}</strong> is added. Field attachment for academic year
+            <strong>{{ specificSchedule.study_year }}</strong> is scheduled to start on
+            <strong>{{ specificSchedule.from_date|date:"F d, Y" }}</strong> and ends on
+            <strong>{{ specificSchedule.to_date|date:"F d, Y"}}</strong>. students are required to undertake
+            <strong>{{specificSchedule.weeks_number}}</strong> weeks of Practical Training.
+          </p>
+        </div>
+        <div class="fieldSchedule_data">
+          <p>
+            <button class="btn" type="button" data-toggle="collapse" data-target="#fieldScheduleEdit" aria-expanded="false" aria-controls="fieldScheduleEdit">
+              Click to edit {{date|date:"Y"}} field schedule
+            </button>
+            <button class="btn" type="button" data-toggle="collapse" data-target="#fieldScheduleView" aria-expanded="false" aria-controls="fieldScheduleView">
+              Click to view current and past field schedules
+            </button>
+          </p>
+          <div class="collapse" id="fieldScheduleEdit">
+            <div class="card card-body">
+              <form class="" action="" method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                  {{ form }}
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn" name="edit_button">Edit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="collapse" id="fieldScheduleView">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>S/no</th>
+                      <th>Academic year</th>
+                      <th>required no. of weeks</th>
+                      <th>Start date</th>
+                      <th>End date</th>
+                      <th>Date created</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for fieldSchedule in all_fieldSchedules %}
+                    <tr>
+                      <th>{{forloop.counter}}</th>
+                      <td>{{fieldSchedule.study_year}}</td>
+                      <td>{{fieldSchedule.weeks_number}} weeks</td>
+                      <td>{{fieldSchedule.from_date|date:"F d, Y"}}</td>
+                      <td>{{fieldSchedule.to_date|date:"F d, Y"}}</td>
+                      <td>{{fieldSchedule.created_date|date:"M d, Y g:ia"}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <div class="form_content">
+        <form class="" action="" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            {{ form }}
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn" name="add_button">Submit</button>
+          </div>
+        </form>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

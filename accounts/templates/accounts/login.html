@@ -1,0 +1,36 @@
+{% extends './account_base.html' %} {% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="outer_container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 offset-md-4">
+        <div class="w3-card w3-animate-zoom header">
+          <p class="site-name">EASTC PT Login</p>
+        </div>
+        <div class="w3-card w3-animate-zoom login_content">
+          <div class="login_image">
+            <img src="{% static 'images/login.png' %}" alt="">
+          </div>
+          <div class="form_content">
+            <form action="{% url 'accounts:login' %}" method="POST">
+              {% csrf_token %}
+              {{ form }}
+              <div class="form-group">
+                {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+                {% endif %}
+              </div>
+              <button type="submit" class="btn">Login<i class="fa fa-sign-out"></i></button>
+            </form>
+          </div>
+        </div>
+        <div class="login_footer">
+          <p>© EASTC field practical training {{current_date.year}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

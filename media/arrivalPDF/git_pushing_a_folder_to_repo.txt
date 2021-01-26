@@ -1,0 +1,24 @@
+git --version
+git config --global user.name "username"
+git config --global user.email "Your email"
+
+# looking for my configurations
+git config --global --list
+
+#1 open file as git bash
+git init --> to initialize
+git status --> to check the status of files if red not yet
+git add -A --> add files for cmmiting
+git status --> checkks status again if the files are ready
+git commit -m "Commit message"
+git remote add origin https://github.com/samwel2000/eastc.git
+git push origin master
+
+#######2
+git checkout -b branch_name   --> creating branch
+git status   --> status of the updated files
+git add .    --> adding all files for commiting
+git commit -m "message"
+git branch  --> Viewing branches i created
+git branch -a ---> Viewing all branches created in project
+git push origin  branch_name

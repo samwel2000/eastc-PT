@@ -1,0 +1,58 @@
+{% extends '../base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="add_field_place px-2">
+  {% if get_currentScheduleWeeks %}
+    {% if fieldplaceCheck %}
+    <div class="exists_content" style="display:block;width:100%;">
+      <div class="exists_message">
+        <p>You have succesifully added your field place information click <strong><a href="{% url 'dashboard:field-place-details' %}"><i>here</i></a></strong>
+        to view the details, or navigate to <strong><i>My place details</i></strong> on the dashboard sidebar.</p>
+
+      </div>
+    </div>
+    {% else %}
+    <form class="" action="{% url 'dashboard:add-field-place' %}" method="POST">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="col-md-4">
+          {{ form.company_name|as_crispy_field }}
+        </div>
+        <div class="col-md-4">
+          {{ form.branch|as_crispy_field }}
+        </div>
+        <div class="col-md-4">
+          {{ form.department|as_crispy_field }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6">
+          {{ form.region|as_crispy_field }}
+        </div>
+        <div class="col-md-6">
+          {{ form.location|as_crispy_field }}
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6">
+          {{ form.supervisor_name|as_crispy_field }}
+        </div>
+        <div class="col-md-6">
+          {{ form.position|as_crispy_field }}
+        </div>
+      </div>
+      {{ form.email|as_crispy_field }}
+
+      <button type="submit" value="submit" class="btn">Submit</button>
+    </form>
+    {% endif %}
+  {% else %}
+  <div class="exists_content" style="display:block;width:100%;">
+    <div class="exists_message">
+      <p>Field schedule for year <strong>{{current_date|date:"Y"}}</strong>
+        has not yet been scheduled. you can not access this page's content
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

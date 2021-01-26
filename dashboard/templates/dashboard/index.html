@@ -1,0 +1,244 @@
+{% extends '../base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+{% if user.profile.role_name == 'student' %}
+<div class="boxpane-header2">
+  <p class="introtext">Welcome !!!</p>
+</div>
+<div class="row px-2">
+  {% if get_currentScheduleWeeks %}
+  <div class="student_dashboard">
+    <p>
+      Dear <strong>{{ user.first_name|upper }} {{ user.last_name|upper }}</strong>, Field Attachment for academic year <strong>{{get_currentScheduleWeeks.study_year}}</strong> is scheduled to start on
+      <strong>{{get_currentScheduleWeeks.from_date|date:"F d, Y"}}</strong> and will end on <strong>{{get_currentScheduleWeeks.to_date|date:"F d, Y"}}</strong>.
+      You are required to attend your practical training for <strong>{{get_currentScheduleWeeks.weeks_number}}</strong> weeks.
+    </p>
+    <ul>
+      <li>
+        There are several place for field attachment, add the place you are will be attending your practical training simply by clicking the option of <strong><a href="{% url 'dashboard:add-field-place' %}"><i>Add field place</i></a></strong>
+        so that you can register the place. Failure to do so you can not proceed with other imortant tasks on the system.
+      </li>
+      <li>
+        You are required to submit youre arrival note as soon as you report at field place. Make sure the approval note is signed, stamped, scanned then uploaded to the system
+        for confirmation of your arrival at the field placement. you can click <strong><a href="{% url 'dashboard:arrival-notes' %}"><i>Arrival notes</i></a></strong> to add the arrival note(pdf). Failure to do so you will be regarded as you have not attended field attachment.
+      </li>
+      <br>
+      <b>Note: </b>
+      Tasks and Lesson learnt will be filled and submitted on the system only when you have completed the above steps.
+    </ul>
+  </div>
+  {% else %}
+  <div class="exists_content" style="display:block;width:100%;">
+    <div class="exists_message">
+      <p>Field schedule for year <strong>{{current_date|date:"Y"}}</strong>
+        has not yet been scheduled. you can not access this page's content
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% elif user.profile.role_name == 'coordinator' or user.profile.role_name == 'admin' %}
+<div class="admin">
+  <div class="admin_dashboard">
+    {% if get_currentScheduleWeeks %}
+    <div class="schedule_section">
+      <div class="w3-card d-flex schedule">
+        <div class="schedule_img">
+          <img src="{% static '/images/green-calendar.png' %}" alt="">
+        </div>
+        <div class="schedule_text">
+          <p>Academic year</p>
+          <p style="color:#00E676">{{ get_currentScheduleWeeks.study_year}}</p>
+        </div>
+      </div>
+      <div class="w3-card d-flex schedule">
+        <div class="schedule_img">
+          <img src="{% static '/images/blue-calendar.png' %}" alt="">
+        </div>
+        <div class="schedule_text">
+          <p>field start date</p>
+          <p style="color:#3a7cb6">{{ get_currentScheduleWeeks.from_date|date:"F d, Y"}}</p>
+        </div>
+      </div>
+      <div class="w3-card d-flex schedule">
+        <div class="schedule_img">
+          <img src="{% static '/images/red-calendar.png' %}" alt="">
+        </div>
+        <div class="schedule_text">
+          <p>field end date</p>
+          <p style="color:#f44336">{{ get_currentScheduleWeeks.to_date|date:"F d, Y"}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="bosOne_section">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="bosOne_data  w3-card p-3  mb-5">
+            <!-- <p class="text-center">Table showing data of students with their field placement</p> -->
+            <div class="table-responsive">
+              <table id="table_id" class="table table-bordered table-hover">
+                <caption>Table showing students with their field placement and arrival note status</caption>
+                <thead>
+                  <tr>
+                    <th width=5%>S/N</th>
+                    <th width=10%>Reg no</th>
+                    <th width=30%>Full name</th>
+                    <th width=10%>Program</th>
+                    <th width=30%>Field place</th>
+                    <th width=15%>ArrivalNote</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for student in get_students %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ student.user.username| title }}</td>
+                    <td>{{ student.user.first_name| title }} {{ student.user.last_name| title }}</td>
+                    <td>{{ student.program| title }}</td>
+                    {% if student.user in current_studentsWith_fieldplacement %}
+                      {% for field_place_detail in field_place_details %}
+                        {% if field_place_detail.student == student.user %}
+                        <td>{{ field_place_detail.company_name }}</td>
+                        {% endif %}
+                      {% endfor %}
+                    {% else %}
+                    <td>.</td>
+                    {% endif %}
+                    <td>
+                      {% if student.user in submitted_arrivalNote%}
+                      submited
+                      {% else %}
+                      .
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="bosOne_data2">
+            <ul>
+              <li><p>Total students</p>
+                <ul class="list-group">
+                  {% if 'BOS1' in programs %}
+                  {% for users_total in users_totals %}
+                    {% if users_total.program == 'BOS1' %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      Bachelor degree first year
+                      <span class="badge badge-pill">{{users_total.count__sum}}</span>
+                    </li>
+                    {% endif %}
+                  {% endfor %}
+                  {% else %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Bachelor degree first year
+                    <span class="badge badge-pill">0</span>
+                  </li>
+                  {% endif %}
+                  {% if 'BOS2' in programs %}
+                  {% for users_total in users_totals %}
+                    {% if users_total.program == 'BOS2' %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                      Bachelor degree second year
+                      <span class="badge badge-pill">{{users_total.count__sum}}</span>
+                    </li>
+                    {% endif %}
+                  {% endfor %}
+                  {% else %}
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Bachelor degree second year
+                    <span class="badge badge-pill">0</span>
+                  </li>
+                  {% endif %}
+                </ul>
+              </li>
+              <li><p>Total students submitted arrival notes</p>
+                <ul class="list-group">
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Bachelor degree first year
+                    <span class="badge badge-pill">{{totalBos1_submitted}}</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Bachelor degree second year
+                    <span class="badge badge-pill">{{totalBos2_submitted}}</span>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="w3-card px-2 pt-4 pb-3 tasks_section">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="table_2">
+          <caption>Table showing student submitted task data</caption>
+          <thead>
+            <tr>
+              <th width=5%>S/No</th>
+              <th width=10%>Reg no.</th>
+              <th width=5%>Week</th>
+              <th width=10%>Day</th>
+              <th width=30%>Task performed</th>
+              <th width=30%>Lesson learnt</th>
+              <th width=5%>Hours</th>
+              <th width=5%>Date submitted</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if task_data %}
+            {% for task in task_data %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{task.student.username}}</td>
+              <td>week {{task.week}}</td>
+              <td>{{task.day}}</td>
+              <td><p>{{task.task}}</p></td>
+              <td><p>{{task.lesson}}</p></td>
+              <td>{{task.hours}}</td>
+              <td>{{task.submission_date|date:"d/m/Y"}}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <td colspan="8" class="text-center text-danger">No tasks submitted yet</td>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% else %}
+    <div class="exists_content" style="display:block;width:100%;">
+      <div class="exists_message">
+        <p>Dear <strong>{{user.first_name|upper}} {{user.last_name|upper}}</strong>You have not added the Field schedule for year <strong>{{current_date|date:"Y"}}</strong> yet. click <b><i><a href="{% url 'dashboard:field-schedule'%}">here</a></i></b> to schedule.
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block blockjs %}
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#table_id').DataTable({
+        dom: 'B<"clear">lfrtip',
+        button: {
+          name: 'primary',
+          button: ['copy', 'csv', 'excel', 'pdf']
+        }
+      });
+      $('#table_2').DataTable({
+        dom: 'B<"clear">lfrtip',
+        button: {
+          name: 'primary',
+          button: ['copy', 'csv', 'excel', 'pdf']
+        }
+      });
+    });
+  </script>
+{% endblock %}
